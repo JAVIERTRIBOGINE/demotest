@@ -1,0 +1,7 @@
+
+<app-shared-form *ngIf="resolvedEditValues"
+ [formColumns]="formColumns"
+ [editValues]="resolvedEditValues[0]"
+ (onSubmitEvent)="submit($event)"
+ >
+</app-shared-form>

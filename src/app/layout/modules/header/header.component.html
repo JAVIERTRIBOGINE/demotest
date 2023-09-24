@@ -1,0 +1,12 @@
+<mat-card>
+    <mat-toolbar color="primary">
+        <mat-toolbar-row>
+          <span>My App</span>
+          <span class="example-spacer"></span>
+          <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+            <mat-icon>menu</mat-icon>
+          </button>
+          <mat-slide-toggle disabled (change)="toggleChecked($event)" [(ngModel)]="toggleValue"><span class="version-slide"></span></mat-slide-toggle>
+        </mat-toolbar-row>
+      </mat-toolbar>
+</mat-card>

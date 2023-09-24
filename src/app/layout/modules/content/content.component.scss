@@ -1,0 +1,15 @@
+.version-slide {
+  color: white;
+}
+
+.example-container {
+  mat-sidenav {
+    padding: 20px;
+    text-align: center;
+  }
+
+  .collapse-button {
+    position: fixed;
+    bottom: 70px;
+  }
+}

@@ -1,0 +1,12 @@
+table {
+    button {
+        &.edit {
+            background-color: green;
+            color: white;
+            margin-right: 5px;
+        }
+        &.view {
+            margin-right: 4px;
+        }
+    }
+}

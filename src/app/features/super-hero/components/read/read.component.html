@@ -1,0 +1,20 @@
+<ng-container *ngIf="!errorState.fail; else failTemplate ">
+  <app-shared-read
+  [entity]="'heroes'"
+  [data]="heroesList"
+  [columns]="displayedColumns"
+  [isLoadingData]="isLoading"
+  (onFilterValue)="applyFilter($event)"
+  (onAddAction)="addForm($event)"
+  (onEditAction)="editForm($event)"
+  (onDeleteAction)="deleteMessage($event)"
+  ></app-shared-read>
+</ng-container>
+<ng-template #failTemplate>
+  <mat-card>
+    <mat-card-content>
+      <h1>DATA CALL HAS FAILED</h1>
+      <p>Switch version to change data call option</p>
+    </mat-card-content>
+  </mat-card>
+</ng-template>
