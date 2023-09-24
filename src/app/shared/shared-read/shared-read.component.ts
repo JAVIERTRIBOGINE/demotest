@@ -1,8 +1,9 @@
-import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableDataSourcePaginator } from '@angular/material/table';
 import { BehaviorSubject, Observable, of } from 'rxjs';
+import { ErrorState } from 'src/app/core/globalStates/error.state';
 import { Heros } from 'src/app/core/models/heros.model';
 
 @Component({
@@ -16,10 +17,10 @@ export class SharedReadComponent implements OnInit, AfterViewInit {
   @Input() set columns(value:string[]) {
     this.columnsTest = value;
   };
-  @Input() data: Observable<Heros[]>= of([]);
+  @Input() data!:Heros[] | null;
   @Input() isLoadingData!: boolean;
-
-  @Output() onFilterValue: EventEmitter<string> = new EventEmitter<string>();
+  // isLoadingData: boolean = false;
+  // @Output() onFilterValue: EventEmitter<string> = new EventEmitter<string>();
   @Output() onDeleteAction: EventEmitter<string> = new EventEmitter<string>();
 
   @Output() onEditAction: EventEmitter<object> = new EventEmitter<object>();
@@ -27,36 +28,73 @@ export class SharedReadComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   pageSizeOptions: number[]= [ 2, 5, 20 ];
   pageSize: number = 2;
-  dataSource!: MatTableDataSource<any>;
+  dataSource: MatTableDataSource<Heros|null, MatPaginator> = new MatTableDataSource<Heros|null, MatPaginator>();
 
   constructor(
     public dialog: MatDialog,
-    private cd: ChangeDetectorRef
-    ) {}
+    // private cd: ChangeDetectorRef,
+    private errorState: ErrorState
+    ) {
+
+      // this.isLoadingData = true;
+      // this.data?.subscribe({
+      //   next: (data) => {
+      //    console.log("oninit de shared-read");
+      //   this.cd.markForCheck();
+      //   // this.dataSource.data = data;
+      //   this.isLoadingData = false;
+      // },
+      // error:   () => this.errorState.setFailState(true),
+      // complete: () => this.isLoadingData = false
+      // })
+    }
 
     get thereIsData() {
-      return this.dataSource?.data ;
+      return !!this.getData && this.getData.length > 0;
+    }
+
+    get getData() {
+      return this.data;
     }
 
     ngOnInit(): void {
-      // this.dataSource
-      this.data?.subscribe(data =>
-        {
-          this.dataSource  = new MatTableDataSource<any>(data);
-          this.cd.markForCheck();
-          this.dataSource.data = data;
-        }
-        );
+      if (this.data) {
+        this.dataSource.data = this.data
+        this.dataSource.paginator = this.paginator;
+      };
+      // this.dataSource.data = this.data;
+
+      // this.isLoadingData = true;
+      // this.data.subscribe({
+      //   next: (data) => {
+      //    console.log("oninit de shared-read");
+      //   this.cd.markForCheck();
+      //   this.dataSource.data = data;
+      //   this.isLoadingData = false;
+      // },
+      // error:   () => this.errorState.setFailState(true),
+      // complete: () => this.isLoadingData = false
+      // })
   }
 
-  setFilterValue(filterValue: any) {
 
+  setFilterValue(filterValue: any) {
     const filterName = (filterValue.target as HTMLInputElement).value
     this.dataSource.filter = filterName;
   }
 
   addAction() {
     this.onAddAction.emit(true);
+  }
+
+  ngOnChanges() {
+    // this.isLoadingData = true;
+    if (this.data) {
+      this.dataSource.data = this.data
+      this.dataSource.paginator = this.paginator;
+    };
+    // setTimeout(() => this.isLoadingData = false, 1000);
+
   }
 
   editAction(element: object) {
@@ -68,6 +106,10 @@ export class SharedReadComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    console.log("this.data: ", this.thereIsData? this.getData: null);
+    if (this.data) {
       this.dataSource.paginator = this.paginator;
+      this.dataSource.data = this.data
+    };
   }
 }

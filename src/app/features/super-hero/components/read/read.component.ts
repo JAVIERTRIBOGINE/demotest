@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable, of } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { delay, tap } from 'rxjs/operators';
 import { ApiV1Service } from 'src/app/core/services/api-v1.service';
 import { SharedDeleteComponent } from 'src/app/shared/shared-delete/shared-delete.component';
 import { environment } from 'src/environments/environment';
@@ -9,6 +9,7 @@ import { FormComponent } from '../form/form.component';
 import { Heros } from 'src/app/core/models/heros.model';
 // import { VersionState } from 'src/app/core/globalStates/version.state';
 import { ErrorState } from 'src/app/core/globalStates/error.state';
+import { VersionState } from 'src/app/core/globalStates/version.state';
 
 @Component({
   selector: 'app-read',
@@ -20,17 +21,21 @@ export class ReadComponent {
   heroesList!: Observable<Heros[]>;
   displayedColumns: string[] = ['id', 'name', 'power', 'movie', 'actions'];
   loading: boolean = false;
+  loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
   // version$: Observable<boolean>;
   failed: boolean = false;
+  resolvedValues!: Heros[];
 
 
   constructor(
     private apiV1: ApiV1Service,
     public dialog: MatDialog,
-    // private versionState: VersionState,
+    private versionState: VersionState,
     public errorState: ErrorState
     ) {
-      // this.version$ = this.versionState.getSwitch();
+    // this.getData()
+
+      this.versionState.getSwitch().subscribe(()=> this.getData());
      }
 
   ngOnInit(): void {
@@ -39,20 +44,26 @@ export class ReadComponent {
 
   get isLoading() {
     return this.loading;
+    // return this.loading$.next(true);
   }
 
   getData(): void {
     this.loading = true;
 
-    this.heroesList = this.apiV1.getData(environment.baseUrl + environment.entities.heroes.url).pipe(
+    this.heroesList = this.apiV1.getData(environment.baseUrl + environment.entities.heroes.url)
+    .pipe(
       delay(1000),
+      tap(() => this.loading$.next(false))
     );
+    this.heroesList.subscribe({
+      next: (data) => {
+        this.loading = false;
+        this.resolvedValues = data}
+    ,
+    error: () => this.errorState.setFailState(true),
+    complete: () => this.loading = false
+   } )
 
-    this.heroesList.subscribe(
-    () => this.loading = false,
-    () => this.errorState.setFailState(true),
-    () => this.loading = false
-    );
   }
 
 

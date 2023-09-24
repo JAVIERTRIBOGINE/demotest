@@ -6,7 +6,6 @@
   </mat-card>
   <ng-container *ngIf="thereIsData; else noData">
     <mat-card >
-      {{ data | async | json }}
       <table  mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
           <ng-container matColumnDef="id">

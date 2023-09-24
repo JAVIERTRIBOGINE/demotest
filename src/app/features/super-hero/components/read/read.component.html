@@ -1,15 +1,15 @@
 <ng-container *ngIf="!errorState.fail; else failTemplate ">
   <app-shared-read
   [entity]="'heroes'"
-  [data]="heroesList"
+  [data]="resolvedValues"
   [columns]="displayedColumns"
-  [isLoadingData]="isLoading"
-  (onFilterValue)="applyFilter($event)"
   (onAddAction)="addForm($event)"
   (onEditAction)="editForm($event)"
   (onDeleteAction)="deleteMessage($event)"
+  [isLoadingData]="loading"
   ></app-shared-read>
 </ng-container>
+<!-- (onFilterValue)="applyFilter($event)" -->
 <ng-template #failTemplate>
   <mat-card>
     <mat-card-content>
