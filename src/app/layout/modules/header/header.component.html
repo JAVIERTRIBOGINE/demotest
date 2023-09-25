@@ -6,7 +6,11 @@
           <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
             <mat-icon>menu</mat-icon>
           </button>
-          <mat-slide-toggle (change)="toggleChecked($event)" [(ngModel)]="toggleValue"><span class="version-slide"></span>Toggle version</mat-slide-toggle>
+          <mat-slide-toggle (change)="toggleChecked($event)" [(ngModel)]="toggleValue"><span class="version-slide"></span></mat-slide-toggle>
+          <mat-chip-listbox >
+            <mat-chip-option *ngIf="connectionState.onlineValue" color="accent" selected>Online</mat-chip-option>
+            <mat-chip-option *ngIf="!connectionState.onlineValue" color="warn">Offline</mat-chip-option>
+          </mat-chip-listbox>
         </mat-toolbar-row>
       </mat-toolbar>
 </mat-card>

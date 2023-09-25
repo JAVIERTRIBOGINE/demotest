@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { delay, tap } from 'rxjs/operators';
 import { ApiV1Service } from 'src/app/core/services/api-v1.service';
 import { SharedDeleteComponent } from 'src/app/shared/shared-delete/shared-delete.component';
 import { environment } from 'src/environments/environment';
 import { FormComponent } from '../form/form.component';
 import { Heros } from 'src/app/core/models/heros.model';
-// import { VersionState } from 'src/app/core/globalStates/version.state';
 import { ErrorState } from 'src/app/core/globalStates/error.state';
 import { VersionState } from 'src/app/core/globalStates/version.state';
 
@@ -22,9 +21,9 @@ export class ReadComponent {
   displayedColumns: string[] = ['id', 'name', 'power', 'movie', 'actions'];
   loading: boolean = false;
   loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
-  // version$: Observable<boolean>;
   failed: boolean = false;
   resolvedValues!: Heros[];
+
 
 
   constructor(
@@ -33,8 +32,6 @@ export class ReadComponent {
     private versionState: VersionState,
     public errorState: ErrorState
     ) {
-    // this.getData()
-
       this.versionState.getSwitch().subscribe(()=> this.getData());
      }
 
@@ -44,7 +41,6 @@ export class ReadComponent {
 
   get isLoading() {
     return this.loading;
-    // return this.loading$.next(true);
   }
 
   getData(): void {
@@ -65,8 +61,6 @@ export class ReadComponent {
    } )
 
   }
-
-
 
   deleteMessage(event: string) {
     const dialogRef = this.dialog.open( SharedDeleteComponent, {
@@ -109,7 +103,8 @@ export class ReadComponent {
     this.loading = true;
     this.apiV1.patchData(environment.baseUrl + environment.entities.heroes.url, data).subscribe(
       {
-        complete: () => this.getData()
+        complete: () => this.getData(),
+        error: () => this.errorState.setFailState(true)
       }
     )
   }
@@ -118,7 +113,8 @@ export class ReadComponent {
     this.loading = true;
     this.apiV1.postData(environment.baseUrl + environment.entities.heroes.url, data).subscribe(
       {
-        complete: () => this.getData()
+        complete: () => this.getData(),
+        error: () => this.errorState.setFailState(true)
       }
     )
   }
@@ -127,7 +123,8 @@ export class ReadComponent {
     this.loading = true;
     this.apiV1.deleteData(environment.baseUrl + environment.entities.heroes.url, id).subscribe(
       {
-        complete: () => this.getData()
+        complete: () => this.getData(),
+        error: () => this.errorState.setFailState(true)
       }
     );
   }

@@ -106,7 +106,6 @@ export class SharedReadComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    console.log("this.data: ", this.thereIsData? this.getData: null);
     if (this.data) {
       this.dataSource.paginator = this.paginator;
       this.dataSource.data = this.data
