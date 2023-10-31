@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable} from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ErrorState {
   fail$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -11,14 +11,11 @@ export class ErrorState {
     return this.fail$.value;
   }
 
-  constructor() { }
-
-  getFailState(): Observable<boolean>{
+  getFailState(): Observable<boolean> {
     return this.fail$.asObservable();
   }
 
-  setFailState(val: boolean) {
+  setFailState(val: boolean): void {
     this.fail$.next(val);
   }
-
 }

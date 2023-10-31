@@ -1,0 +1,17 @@
+<mat-card>
+  <mat-card-header>
+    <h3>Tresaury Account</h3>
+
+  </mat-card-header>
+  <mat-card-content>
+    <div class="master-data" *ngIf="headerData">
+      <div class="master-item" *ngFor="let item of headerData | keyvalue">
+        <span class="master-key">{{item.key}}</span><span class="master-value">: {{item.value
+          }}</span><br>
+      </div>
+    </div>
+
+
+  </mat-card-content>
+  <div class="container detail"></div>
+</mat-card>

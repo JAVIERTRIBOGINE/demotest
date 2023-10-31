@@ -1,115 +1,75 @@
-import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource, MatTableDataSourcePaginator } from '@angular/material/table';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { ErrorState } from 'src/app/core/globalStates/error.state';
-import { Heros } from 'src/app/core/models/heros.model';
+import { MatTableDataSource } from '@angular/material/table';
+import { AccountGroup } from 'src/app/core/models/accounts.model';
+import { PROPERTIES_FIELDS_DTO } from 'src/app/core/models/fields-properties.model';
 
 @Component({
   selector: 'app-shared-read',
   templateUrl: './shared-read.component.html',
-  styleUrls: ['./shared-read.component.scss']
+  styleUrls: ['./shared-read.component.scss'],
 })
-export class SharedReadComponent implements OnInit, AfterViewInit {
-  @Input() entity!: string;
+export class SharedReadComponent implements OnInit, OnChanges, AfterViewInit {
   columnsTest!: string[];
-  @Input() set columns(value:string[]) {
+  @Input() set columns(value: string[]) {
     this.columnsTest = value;
-  };
-  @Input() data!:Heros[] | null;
+  }
+  @Output() navigate: EventEmitter<AccountGroup> = new EventEmitter();
+  @Input() data!: AccountGroup[] | null;
   @Input() isLoadingData!: boolean;
-  // isLoadingData: boolean = false;
-  // @Output() onFilterValue: EventEmitter<string> = new EventEmitter<string>();
-  @Output() onDeleteAction: EventEmitter<string> = new EventEmitter<string>();
-
-  @Output() onEditAction: EventEmitter<object> = new EventEmitter<object>();
-  @Output() onAddAction: EventEmitter<boolean> = new EventEmitter<boolean>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  pageSizeOptions: number[]= [ 2, 5, 20 ];
-  pageSize: number = 2;
-  dataSource: MatTableDataSource<Heros|null, MatPaginator> = new MatTableDataSource<Heros|null, MatPaginator>();
+  pageSizeOptions: number[] = [2, 5, 10];
+  pageSize = 10;
+  dataSource: MatTableDataSource<AccountGroup, MatPaginator> =
+    new MatTableDataSource<AccountGroup, MatPaginator>();
 
-  constructor(
-    public dialog: MatDialog,
-    // private cd: ChangeDetectorRef,
-    private errorState: ErrorState
-    ) {
-
-      // this.isLoadingData = true;
-      // this.data?.subscribe({
-      //   next: (data) => {
-      //    console.log("oninit de shared-read");
-      //   this.cd.markForCheck();
-      //   // this.dataSource.data = data;
-      //   this.isLoadingData = false;
-      // },
-      // error:   () => this.errorState.setFailState(true),
-      // complete: () => this.isLoadingData = false
-      // })
-    }
-
-    get thereIsData() {
-      return !!this.getData && this.getData.length > 0;
-    }
-
-    get getData() {
-      return this.data;
-    }
-
-    ngOnInit(): void {
-      if (this.data) {
-        this.dataSource.data = this.data
-        this.dataSource.paginator = this.paginator;
-      };
-      // this.dataSource.data = this.data;
-
-      // this.isLoadingData = true;
-      // this.data.subscribe({
-      //   next: (data) => {
-      //    console.log("oninit de shared-read");
-      //   this.cd.markForCheck();
-      //   this.dataSource.data = data;
-      //   this.isLoadingData = false;
-      // },
-      // error:   () => this.errorState.setFailState(true),
-      // complete: () => this.isLoadingData = false
-      // })
+  get isLoading() {
+    return this.isLoadingData;
   }
 
-
-  setFilterValue(filterValue: any) {
-    const filterName = (filterValue.target as HTMLInputElement).value
-    this.dataSource.filter = filterName;
+  get thereIsData() {
+    return !!this.getData && this.getData.length > 0;
   }
 
-  addAction() {
-    this.onAddAction.emit(true);
+  get getData() {
+    return this.data;
+  }
+
+  ngOnInit(): void {
+    if (this.data) {
+      this.dataSource.data = this.data;
+      this.dataSource.paginator = this.paginator;
+    }
+  }
+
+  public getPropertyFieldDto(col: string): string {
+    return PROPERTIES_FIELDS_DTO[col];
+  }
+
+  detailAction(event: AccountGroup) {
+    this.navigate.next(event);
   }
 
   ngOnChanges() {
-    // this.isLoadingData = true;
     if (this.data) {
-      this.dataSource.data = this.data
+      this.dataSource.data = this.data;
       this.dataSource.paginator = this.paginator;
-    };
-    // setTimeout(() => this.isLoadingData = false, 1000);
-
-  }
-
-  editAction(element: object) {
-    this.onEditAction.emit(element);
-  }
-
-  deleteAction(id: string) {
-    this.onDeleteAction.emit(id);
+    }
   }
 
   ngAfterViewInit(): void {
-    console.log("this.data: ", this.thereIsData? this.getData: null);
     if (this.data) {
       this.dataSource.paginator = this.paginator;
-      this.dataSource.data = this.data
-    };
+      this.dataSource.data = this.data;
+    }
   }
 }

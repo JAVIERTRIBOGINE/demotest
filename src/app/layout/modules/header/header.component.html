@@ -1,12 +1,9 @@
 <mat-card>
-    <mat-toolbar color="primary">
-        <mat-toolbar-row>
-          <span>My App</span>
-          <span class="example-spacer"></span>
-          <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-            <mat-icon>menu</mat-icon>
-          </button>
-          <mat-slide-toggle (change)="toggleChecked($event)" [(ngModel)]="toggleValue"><span class="version-slide"></span>Toggle version</mat-slide-toggle>
-        </mat-toolbar-row>
-      </mat-toolbar>
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span>My App</span>
+      <span class="rate title">Change: 1 BTC </span> | <span class="rate value {{increase?'green':'red'}}">$ {{ rate
+        }}</span>
+    </mat-toolbar-row>
+  </mat-toolbar>
 </mat-card>

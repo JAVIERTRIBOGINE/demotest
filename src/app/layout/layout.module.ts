@@ -10,24 +10,32 @@ import { MaterialModule } from '../core/material/material.module';
 
 const routes: Routes = [
   {
-    path: '', component: LayoutComponent,
+    path: '',
+    component: LayoutComponent,
     children: [
-    {
-        path: 'heroes',
-        loadChildren: () => import('../features/super-hero/super-hero.module').then(m => m.SuperHeroModule)
-      }
-      ,
       {
-        path: '', redirectTo: 'heroes', pathMatch: "full"
-      }
-    ]
+        path: 'home',
+        loadChildren: () =>
+          import('../features/admin/admin.module').then((m) => m.AdminModule),
+      },
+      {
+        path: 'accounts',
+        loadChildren: () =>
+          import('../features/account/account.module').then(
+            (m) => m.AccountModule,
+          ),
+      },
+      {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full',
+      },
+    ],
   },
-  
 ];
 
 @NgModule({
-  declarations: [
-    LayoutComponent],
+  declarations: [LayoutComponent],
   imports: [
     ContentModule,
     MaterialModule,
@@ -36,11 +44,7 @@ const routes: Routes = [
     HeaderModule,
     FooterModule,
   ],
-  providers: [
-    ApiV1Service
-  ],
-  exports: [
-    RouterModule
-  ]
+  providers: [ApiV1Service],
+  exports: [RouterModule],
 })
-export class LayoutModule { }
+export class LayoutModule {}

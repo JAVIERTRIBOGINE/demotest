@@ -2,12 +2,11 @@ import { NgModule } from '@angular/core';
 
 import { MatCardModule } from '@angular/material/card';
 
-import { MatButtonModule  } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 
 import { MatIconModule } from '@angular/material/icon';
 
@@ -41,69 +40,59 @@ import { MatListModule } from '@angular/material/list';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 const DECLARATIONS = [
+  MatSidenavModule,
 
-    MatSidenavModule,
+  MatFormFieldModule,
 
-    MatFormFieldModule,
+  MatButtonModule,
 
-    MatButtonModule,
+  MatListModule,
 
-    MatListModule,
+  MatCardModule,
 
-    MatCardModule,
+  MatIconModule,
 
-    MatIconModule,
+  MatTableModule,
 
-    MatTableModule,
+  MatSlideToggleModule,
 
-    MatSlideToggleModule,
+  FormsModule,
 
-    FormsModule,
+  ReactiveFormsModule,
 
-    ReactiveFormsModule,
+  MatChipsModule,
 
-    MatChipsModule,
+  MatMenuModule,
 
-    MatMenuModule,
+  MatProgressSpinnerModule,
 
-    MatProgressSpinnerModule,
+  MatInputModule,
 
-    MatInputModule,
+  MatSelectModule,
 
-    MatSelectModule,
+  MatTabsModule,
 
-    MatTabsModule,
+  MatTooltipModule,
 
-    MatTooltipModule,
+  MatDialogModule,
 
-    MatDialogModule,
+  MatDividerModule,
 
-    MatDividerModule,
+  MatSnackBarModule,
 
-    MatSnackBarModule,
+  MatToolbarModule,
 
-    MatToolbarModule,
-
-    MatPaginatorModule
-
-
+  MatPaginatorModule,
 ];
 
-
-
 @NgModule({
+  imports: [...DECLARATIONS],
 
-    imports: [...DECLARATIONS],
+  exports: [...DECLARATIONS],
 
-    exports: [...DECLARATIONS],
-
-    providers: []
-
+  providers: [],
 })
-
-export class MaterialModule { }
-
-
+export class MaterialModule {}

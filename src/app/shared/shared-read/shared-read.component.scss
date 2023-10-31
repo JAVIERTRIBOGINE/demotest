@@ -1,12 +1,21 @@
-table {
+:host {
+  mat-spinner {
+    position: absolute;
+    top: 30%;
+    right: 40%;
+  }
+
+  table {
     button {
-        &.edit {
-            background-color: green;
-            color: white;
-            margin-right: 5px;
-        }
-        &.view {
-            margin-right: 4px;
-        }
+      &.edit {
+        background-color: green;
+        color: white;
+        margin-right: 5px;
+      }
+
+      &.view {
+        margin-right: 4px;
+      }
     }
+  }
 }

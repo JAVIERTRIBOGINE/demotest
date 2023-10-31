@@ -1,17 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from 'src/app/core/material/material.module';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { ContentComponent } from './content.component';
-
+import { BreadcrumbComponent } from '../../../shared/breadcrumb/breadcrumb.component';
 
 @NgModule({
-  declarations: [ ContentComponent ],
-  imports: [
-    CommonModule,
-    MaterialModule,
-    RouterModule,
-  ],
-  exports: [ RouterModule, ContentComponent ],
+  declarations: [ContentComponent, BreadcrumbComponent],
+  imports: [CommonModule, MaterialModule, RouterModule],
+  exports: [RouterModule, ContentComponent],
 })
-export class ContentModule { }
+export class ContentModule {}

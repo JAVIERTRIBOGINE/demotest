@@ -1,21 +1,21 @@
-import { Directive, ElementRef, HostListener, Input, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, HostListener, Renderer2 } from '@angular/core';
 
 @Directive({
-  selector: '[appUppercase]'
+  selector: '[appUppercase]',
 })
 export class UppercaseDirective {
-  constructor(private el: ElementRef, private renderer: Renderer2) { }
-
+  constructor(
+    private el: ElementRef,
+    private renderer: Renderer2,
+  ) {}
 
   @HostListener('input', ['$event'])
-  onInput(event: any) {
+  onInput(event: unknown) {
     this.uppercase(event);
   }
 
-
   private uppercase(event: any) {
-
-    if(event.target && event.target['name'] === "name") event.target['value'] = event.target['value'].toUpperCase();
+    if (event.target && event.target['name'] === 'name')
+      event.target['value'] = event.target['value'].toUpperCase();
   }
-
 }

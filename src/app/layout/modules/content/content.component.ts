@@ -1,21 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-content',
   templateUrl: './content.component.html',
-  styleUrls: ['./content.component.scss']
+  styleUrls: ['./content.component.scss'],
 })
-export class ContentComponent implements OnInit {
-  isShowing:boolean = false;
-  constructor() { }
+export class ContentComponent {
+  isShowing = false;
 
-  ngOnInit(): void {
-  }
   toogleSideNav() {
     this.isShowing = !this.isShowing;
   }
-
-
-  
-
 }

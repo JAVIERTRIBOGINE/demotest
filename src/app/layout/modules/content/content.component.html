@@ -1,16 +1,21 @@
-<mat-sidenav-container class="example-container" >
+<mat-sidenav-container class="side-container">
   <mat-sidenav #sidenav mode="side" [opened]="isShowing">
-     <a mat-flat-button [routerLink]="['/admin']" >heroes</a>
+    <a mat-flat-button [routerLink]="['/admin']">admin</a><br>
+    <a mat-flat-button [routerLink]="['/login']">login</a>
   </mat-sidenav>
   <mat-sidenav-content>
     <ng-container>
-      <div>
+      <div class="side-content">
+        <mat-card>
+          <mat-card-content>
+            <app-breadcrumb></app-breadcrumb>
+          </mat-card-content>
+        </mat-card>
         <router-outlet></router-outlet>
       </div>
-    </ng-container> 
+    </ng-container>
     <button mat-button-raised color="primary" class="collapse-button" (click)="toogleSideNav()">
       <mat-icon>{{isShowing?'keyboard_arrow_left':'keyboard_arrow_right'}}</mat-icon>
     </button>
-</mat-sidenav-content>
+  </mat-sidenav-content>
 </mat-sidenav-container>
-

@@ -15,6 +15,7 @@
         <mat-error *ngIf="isFieldInvalid('password')">{{getErrorMessage('password')}}</mat-error>
       </mat-form-field>
     </form>
-    <button mat-raised-button color="primary" (click)="navigateToDashboard()" [disabled]="isFormInvalid()">ACCESS TO DASHBOARD</button>
+    <button mat-raised-button color="primary" (click)="navigateToDashboard()" [disabled]="isFormInvalid()">ACCESS TO
+      DASHBOARD</button>
   </mat-card-content>
 </mat-card>

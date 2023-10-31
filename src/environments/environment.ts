@@ -6,12 +6,16 @@ export const environment = {
   production: false,
   baseUrl: 'http://localhost:3000',
   entities: {
-    heroes: {
-      url: '/heroes',
-      filterKey: 'name'
-    }
-  }
-
+    accounts: {
+      url: 'account',
+    },
+    accountDetails: {
+      url: 'detail',
+    },
+    rate: {
+      url: 'rate',
+    },
+  },
 };
 
 /*

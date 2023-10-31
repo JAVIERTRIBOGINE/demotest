@@ -1,26 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedReadModule } from './shared-read/shared-read.module';
-import { SharedFormModule } from './shared-form/shared-form.module';
-import { SharedDeleteModule } from './shared-delete/shared-delete.module';
-
-const DECLARATIONS = [
-  SharedReadModule,
-  SharedFormModule,
-  SharedDeleteModule
-]
+import { SharedMasterModule } from './shared-master/shared-master.module';
 
 @NgModule({
-  declarations: [
-  ],
-  imports: [
-    CommonModule,
-    SharedReadModule,
-    SharedFormModule,
-    SharedDeleteModule
-  ],
-  exports: [  SharedReadModule,
-    SharedFormModule,
-    SharedDeleteModule]
+  declarations: [],
+  imports: [CommonModule, SharedReadModule, SharedMasterModule],
+  exports: [SharedReadModule, SharedMasterModule],
 })
-export class SharedModule { }
+export class SharedModule {}

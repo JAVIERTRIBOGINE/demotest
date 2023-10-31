@@ -7,19 +7,15 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, timeout } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class CustomHttpInterceptor implements HttpInterceptor {
   intercept(
-    req: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
-
-
-
+    req: HttpRequest<unknown>,
+    next: HttpHandler,
+  ): Observable<HttpEvent<unknown>> {
     return next.handle(req).pipe(
-      timeout(3000),
       catchError((error: HttpErrorResponse) => {
         if (error instanceof HttpErrorResponse) {
           if (error.status === 401) {
@@ -37,7 +33,7 @@ export class CustomHttpInterceptor implements HttpInterceptor {
 
         // Re-throw the error to propagate it to the subscriber
         return throwError(error);
-      })
+      }),
     );
   }
 }

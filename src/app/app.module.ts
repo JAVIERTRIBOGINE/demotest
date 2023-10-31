@@ -8,15 +8,13 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CustomHttpInterceptor } from './core/interceptor/http-interceptor';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
   ],
 
   providers: [
@@ -24,7 +22,8 @@ import { CustomHttpInterceptor } from './core/interceptor/http-interceptor';
       provide: HTTP_INTERCEPTORS,
       useClass: CustomHttpInterceptor,
       multi: true,
-    }],
-  bootstrap: [AppComponent]
+    },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -2,10 +2,14 @@
   color: white;
 }
 
-.example-container {
+.side-container {
   mat-sidenav {
     padding: 20px;
     text-align: center;
+  }
+
+  side-content {
+    margin: 1%;
   }
 
   .collapse-button {

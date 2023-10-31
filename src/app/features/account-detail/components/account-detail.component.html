@@ -1,0 +1,13 @@
+<ng-container *ngIf="!errorState.fail; else failTemplate ">
+  <app-shared-master [id]="id"></app-shared-master>
+  <app-shared-read [data]="resolvedValues" [columns]="displayedColumns" [isLoadingData]="loading"></app-shared-read>
+  <!-- <button mat-button (click)="mockInsert()">MOCK INSERT</button> -->
+</ng-container>
+<ng-template #failTemplate>
+  <mat-card>
+    <mat-card-content>
+      <h1>DATA CALL HAS FAILED</h1>
+      <p>Switch version to change data call option</p>
+    </mat-card-content>
+  </mat-card>
+</ng-template>

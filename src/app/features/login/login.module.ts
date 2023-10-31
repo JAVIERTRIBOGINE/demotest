@@ -6,22 +6,15 @@ import { MaterialModule } from 'src/app/core/material/material.module';
 
 const routes: Routes = [
   {
-    path: '', component: LoginComponent
-  }
+    path: '',
+    component: LoginComponent,
+  },
 ];
 
 @NgModule({
-  declarations: [
-    LoginComponent
-  ],
-  
-  imports: [
-    RouterModule.forChild(routes),
-    CommonModule,
-    MaterialModule
-  ],
-  exports: [
-    RouterModule
-  ]
+  declarations: [LoginComponent],
+
+  imports: [RouterModule.forChild(routes), CommonModule, MaterialModule],
+  exports: [RouterModule],
 })
-export class LoginModule { }
+export class LoginModule {}

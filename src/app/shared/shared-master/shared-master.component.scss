@@ -1,0 +1,24 @@
+:host {
+  mat-card-content {
+    margin: 0 0 16px 0;
+
+    .master-data {
+      display: flex;
+
+      .master-item {
+        margin: 0 5px;
+      }
+
+      .master-key {
+        background: lightgrey;
+        border: 1px solid lightgrey;
+        padding: 5px;
+      }
+
+      .master-value {
+        border: 1px solid lightgrey;
+        padding: 5px;
+      }
+    }
+  }
+}

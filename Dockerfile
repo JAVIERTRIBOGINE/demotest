@@ -4,23 +4,20 @@ FROM node:18.13.0 as build
 # Set the working directory inside the container
 WORKDIR /usr/local/app
 
-# Copy package.json and package-lock.json to the container
-COPY . /usr/local/app/
-
-# # Install Angular CLI globally
-# RUN npm install -g @angular/cli
-
+COPY . .
+# COPY package*.json ./
 # Install project dependencies
 RUN npm install --legacy-peer-deps
 
-# Copy the rest of the application code to the container
+# Copy package.json and package-lock.json to the container
 
-# Build the Angular app for production
+
 RUN npm run build
 
-FROM nginx:latest
+FROM nginx:alpine
 
-COPY --from=build /usr/local/app/dist/primeCrud /usr/share/nginx/html
+EXPOSE 80
+
+COPY --from=build /usr/local/app/dist/fortrisfront /usr/share/nginx/html
 
 # Expose the port your Angular app will run on (default is 80)
-EXPOSE 80

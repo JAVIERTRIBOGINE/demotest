@@ -1,25 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import { ErrorState } from 'src/app/core/globalStates/error.state';
-import { VersionState } from 'src/app/core/globalStates/version.state';
+import { RandomGeneratorService } from './../../../core/services/random-generator.service';
+import { Component } from '@angular/core';
+import { Observable, map, pairwise } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
-  checked:boolean = false;
-  toggleValue: boolean = false;
-  constructor(private versionState: VersionState, public errorState: ErrorState) { }
+export class HeaderComponent {
+  messages!: Observable<string>;
+  checked = false;
+  toggleValue = false;
+  rate$!: Observable<number>;
+  rate!: number;
+  increase!: boolean;
 
-  ngOnInit(): void {
+  constructor(private randomGeneratorService: RandomGeneratorService) {
+    this.randomGeneratorService.randomRate$
+      .pipe(
+        pairwise(),
+        map(([previous, current]) => {
+          this.increase = previous < current;
+          this.rate = current;
+        }),
+      )
+      .subscribe();
   }
-
-  toggleChecked(event: any) {
-    this.errorState.fail$.next(false);
-    this.versionState.setSwitch(this.toggleValue);
-  }
-
-
-
 }

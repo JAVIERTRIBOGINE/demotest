@@ -1,0 +1,12 @@
+<ng-container *ngIf="!errorState.fail; else failTemplate ">
+  <app-shared-read (navigate)="navigate($event)" [data]="resolvedValues" [columns]="displayedColumns"
+    [isLoadingData]="isLoading"></app-shared-read>
+</ng-container>
+<ng-template #failTemplate>
+  <mat-card>
+    <mat-card-content>
+      <h1>DATA CALL HAS FAILED</h1>
+      <p>Switch version to change data call option</p>
+    </mat-card-content>
+  </mat-card>
+</ng-template>

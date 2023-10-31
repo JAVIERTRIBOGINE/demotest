@@ -1,3 +1,43 @@
-.version-slide {
-    color: white;
+$text-color: #333; // Change this to your desired text color
+
+$highlight-color: #ffcc00; // Change this to your desired highlight color
+
+// Define a function to lighten a color
+@function lightenColor($color, $amount) {
+  @return lighten($color, $amount);
+}
+
+
+:host {
+  mat-card ::ng-deep {
+
+    // width: 100%;
+
+    .rate {
+      width: 100%;
+      margin: 0 10px;
+
+      &.title {
+        text-align: right;
+
+      }
+
+      &.value {
+        text-align: left;
+        color: white;
+        transition: color 0.3s;
+
+        &.green {
+          color: green;
+          transition: color 0.3s;
+        }
+
+        &.red {
+          color: red;
+          transition: color 0.3s;
+        }
+      }
+    }
+
+  }
 }

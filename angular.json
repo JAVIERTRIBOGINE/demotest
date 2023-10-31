@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "demotest": {
+    "fortrisfront": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/demotest",
+            "outputPath": "dist/fortrisfront",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -64,12 +64,15 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "proxyConfig": "proxy.conf.json"
+          },
           "configurations": {
             "production": {
-              "browserTarget": "demotest:build:production"
+              "browserTarget": "fortrisfront:build:production"
             },
             "development": {
-              "browserTarget": "demotest:build:development"
+              "browserTarget": "fortrisfront:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -77,7 +80,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "demotest:build"
+            "browserTarget": "fortrisfront:build"
           }
         },
         "test": {
@@ -99,11 +102,23 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
   "cli": {
-    "analytics": "5b564e6d-5f02-4b8a-bcd4-26c6ea15fd7e"
+    "analytics": "5b564e6d-5f02-4b8a-bcd4-26c6ea15fd7e",
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }
